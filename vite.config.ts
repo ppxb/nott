@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
 	process.env.VITE_APP_BUILD_EPOCH = new Date().getTime().toString()
 }
 
-export default defineConfig(async () => ({
+export default defineConfig({
 	plugins: [react()],
 	resolve: {
 		alias: {
@@ -36,4 +36,12 @@ export default defineConfig(async () => ({
 			ignored: ['**/src-tauri/**'],
 		},
 	},
-}))
+	build: {
+		outDir: './dist',
+		target: platform === 'windows' ? 'chrome111' : 'safari16.4',
+		minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
+		emptyOutDir: true,
+		chunkSizeWarningLimit: 1024,
+		sourcemap: !!process.env.TAURI_ENV_DEBUG,
+	},
+})
