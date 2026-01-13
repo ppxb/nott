@@ -43,7 +43,7 @@ function App() {
         />
         <button type="submit">Greet</button>
       </form>
-      <p>{greetMsg}</p>
+      <p className="text-2xl text-amber-500">{greetMsg}</p>
     </main>
   )
 }
