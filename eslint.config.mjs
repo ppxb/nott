@@ -11,5 +11,6 @@ export default antfu({
 
   ignores: [
     'src-tauri/**',
+    'dist/**',
   ],
 })
