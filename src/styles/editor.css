@@ -1,8 +1,11 @@
-.ProseMirror {
-  @apply prose prose-slate outline-0;
+.tiptap {
+  width: 100%;
+}
 
-  min-height: 180px;
-  padding: 32px 80px;
+.ProseMirror {
+  @apply prose prose-slate;
+
+  padding: 60px 80px 48px 80px;
 }
 
 .tiptap p.is-editor-empty:first-child::before,
@@ -12,4 +15,10 @@
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+.drag-handle {
+  transition-property: top;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
 }
