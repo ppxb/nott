@@ -31,11 +31,11 @@ export const SlashCommand = Extension.create({
 				},
 
 				render: () => {
-					let reactRenderer: any
+					let reactRenderer: ReactRenderer
 
 					return {
-						onStart: (props: any) => {
-							if (!props.clentRect) {
+						onStart: props => {
+							if (!props.clientRect) {
 								return
 							}
 
@@ -47,6 +47,28 @@ export const SlashCommand = Extension.create({
 							reactRenderer.element.style.position = 'absolute'
 							document.body.appendChild(reactRenderer.element)
 							updatePosition(props.editor, reactRenderer.element)
+						},
+						onUpdate: props => {
+							reactRenderer.updateProps(props)
+							if (!props.clientRect) {
+								return
+							}
+							updatePosition(props.editor, reactRenderer.element)
+						},
+						onKeyDown: props => {
+							if (props.event.key === 'Escape') {
+								reactRenderer.destroy()
+								reactRenderer.element.remove()
+								return true
+							}
+							return (reactRenderer.ref as any).onKeyDown(props)
+						},
+						onExit: () => {
+							if (!reactRenderer) {
+								return
+							}
+							reactRenderer.destroy()
+							reactRenderer.element.remove()
 						}
 					}
 				}
