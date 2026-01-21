@@ -1,12 +1,15 @@
 import { SuggestionKeyDownProps } from '@tiptap/suggestion'
 import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { useCommandList } from '@/store/command-list'
+import { useFilteredCommandList } from '../render-command-list'
 
 function SlashCommandNodeView(props: any, ref: any) {
 	const [commandList] = useCommandList()
 	const [selectedCommandIndex, setSelectedCommandIndex] = useState(0)
 	const [selectedGroupIndex, setSelectedGroupIndex] = useState(0)
 	const scrollContainer = useRef<HTMLDivElement | null>(null)
+
+	const commandQuery = useFilteredCommandList(commandList, props.query)
 
 	const activeItemRefs = useRef<(HTMLButtonElement | null)[]>([])
 
@@ -33,6 +36,7 @@ function SlashCommandNodeView(props: any, ref: any) {
 
 	function onKeyDown({ event }: SuggestionKeyDownProps) {
 		if (event.key === 'ArrowUp') {
+			upHandler()
 			return true
 		}
 
@@ -45,5 +49,26 @@ function SlashCommandNodeView(props: any, ref: any) {
 		}
 
 		return false
+	}
+
+	function upHandler() {
+		if (commandQuery.length === 0) {
+			return false
+		}
+
+		let newCommandIndex = selectedCommandIndex - 1
+		let newGroupIndex = selectedGroupIndex
+
+		if (newCommandIndex < 0) {
+			newGroupIndex = selectedGroupIndex - 1
+
+			if (newGroupIndex < 0) {
+				newGroupIndex = commandQuery.length - 1
+			}
+			newCommandIndex = commandQuery[newGroupIndex].commands.length - 1
+		}
+
+		setSelectedCommandIndex(newCommandIndex)
+		setSelectedGroupIndex(newGroupIndex)
 	}
 }
