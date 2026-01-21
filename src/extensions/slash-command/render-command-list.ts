@@ -1,4 +1,8 @@
+import { HEADINGS } from '@/constants'
 import { CommandList } from './types'
+
+type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6
+type HeadingOption = 'Paragraph' | HeadingLevel
 
 export function renderCommandList() {
 	const groups: CommandList[] = [
@@ -18,6 +22,43 @@ export function renderCommandList() {
 			commands: []
 		}
 	]
+
+	HEADINGS.forEach((level: HeadingOption) => {
+		groups[0].commands.push({
+			name: `Heading ${level}`,
+			label: `Heading ${level}`,
+			aliases: [`h${level}`, `bt${level}`],
+			iconName: `Heading${level}`,
+			isActive: editor => {
+				if (level === 'Paragraph') {
+					return false
+				}
+
+				return editor.isActive('heading', { level }) || false
+			},
+			action: ({ editor, range }) => {
+				const currentActiveLevel = HEADINGS.find(
+					(lvl): lvl is HeadingLevel =>
+						lvl !== 'Paragraph' &&
+						editor.isActive('heading', { level: lvl as HeadingLevel })
+				)
+
+				if (level === 'Paragraph') {
+					if (currentActiveLevel !== undefined) {
+						editor.commands.toggleHeading({ level: currentActiveLevel })
+						editor.chain().focus().deleteRange(range).run()
+					} else {
+						editor.chain().focus().deleteRange(range).run()
+					}
+					return
+				}
+
+				editor.chain().focus().deleteRange(range).setHeading({ level }).run()
+			}
+		})
+	})
+
+	return groups
 }
 
 export function useFilteredCommandList(
