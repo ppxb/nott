@@ -109,4 +109,12 @@ function SlashCommandNodeView(props: any, ref: any) {
 		const command = commandQuery[groupIndex].commands[commandIndex]
 		props?.command(command)
 	}
+
+	function createCommandClickHandler(groupIndex: number, commandIndex: number) {
+		selectItem(groupIndex, commandIndex)
+	}
+
+	function setActiveItemRef(groupIndex: number, cmomandIndex: number, el: any) {
+		activeItemRefs.current[groupIndex * 1000 + cmomandIndex] = el
+	}
 }
