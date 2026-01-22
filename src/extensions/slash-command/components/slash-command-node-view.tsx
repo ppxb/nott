@@ -41,6 +41,7 @@ function SlashCommandNodeView(props: any, ref: any) {
 		}
 
 		if (event.key === 'ArrowDown') {
+			downHandler()
 			return true
 		}
 
@@ -68,6 +69,26 @@ function SlashCommandNodeView(props: any, ref: any) {
 			newCommandIndex = commandQuery[newGroupIndex].commands.length - 1
 		}
 
+		setSelectedCommandIndex(newCommandIndex)
+		setSelectedGroupIndex(newGroupIndex)
+	}
+
+	function downHandler() {
+		if (commandQuery.length === 0) {
+			return false
+		}
+
+		const commands = commandQuery[selectedGroupIndex].commands
+		let newCommandIndex = selectedCommandIndex + 1
+		let newGroupIndex = selectedGroupIndex
+
+		if (commands.length - 1 < newCommandIndex) {
+			newCommandIndex = 0
+			newGroupIndex = selectedGroupIndex + 1
+		}
+		if (commandQuery.length - 1 < newGroupIndex) {
+			newGroupIndex = 0
+		}
 		setSelectedCommandIndex(newCommandIndex)
 		setSelectedGroupIndex(newGroupIndex)
 	}
