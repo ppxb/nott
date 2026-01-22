@@ -46,6 +46,7 @@ function SlashCommandNodeView(props: any, ref: any) {
 		}
 
 		if (event.key === 'Enter') {
+			enterHandler()
 			return true
 		}
 
