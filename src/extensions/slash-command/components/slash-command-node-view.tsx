@@ -92,4 +92,21 @@ function SlashCommandNodeView(props: any, ref: any) {
 		setSelectedCommandIndex(newCommandIndex)
 		setSelectedGroupIndex(newGroupIndex)
 	}
+
+	function enterHandler() {
+		if (
+			commandQuery.length === 0 ||
+			selectedGroupIndex === -1 ||
+			selectedCommandIndex === -1
+		) {
+			return false
+		}
+
+		selectItem(selectedGroupIndex, selectedCommandIndex)
+	}
+
+	function selectItem(groupIndex: number, commandIndex: number) {
+		const command = commandQuery[groupIndex].commands[commandIndex]
+		props?.command(command)
+	}
 }
