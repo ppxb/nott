@@ -15,6 +15,7 @@ const TooltipContent = React.forwardRef<
 >(({ className, sideOffset = 4, ...props }, ref) => (
 	<TooltipPrimitive.Portal>
 		<TooltipPrimitive.Content
+			data-nott-portal
 			ref={ref}
 			sideOffset={sideOffset}
 			className={cn(
