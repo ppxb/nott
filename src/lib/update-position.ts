@@ -1,17 +1,16 @@
-import type { FloatingElement, ReferenceElement } from '@floating-ui/dom'
+import type { FloatingElement } from '@floating-ui/dom'
 import { computePosition, flip, shift } from '@floating-ui/dom'
 import { Editor, posToDOMRect } from '@tiptap/core'
 
 export function updatePosition(editor: Editor, element: FloatingElement) {
 	const virtualEl = {
-		getBoundingClientRect: () => {
+		getBoundingClientRect: () =>
 			posToDOMRect(
 				editor.view,
 				editor.state.selection.from,
 				editor.state.selection.to
 			)
-		}
-	} as ReferenceElement
+	}
 
 	computePosition(virtualEl, element, {
 		placement: 'bottom-start',
