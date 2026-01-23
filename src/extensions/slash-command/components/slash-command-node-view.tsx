@@ -136,14 +136,14 @@ function SlashCommandNodeView(props: any, ref: any) {
 		>
 			{commandQuery?.length ? (
 				<div className="grid min-w-48 grid-cols-1 gap-0.5">
-					{commandQuery?.map((group: any, groupIndex: any) => {
+					{commandQuery?.map((group, groupIndex) => {
 						return (
 							<Fragment key={`slash-${group.title}`}>
 								<Label className="mx-[4px] mb-[4px] mt-[8px] text-[0.65rem]! uppercase">
 									{group.title}
 								</Label>
 
-								{group.commands.map((command: any, commandIndex: any) => {
+								{group.commands.map((command, commandIndex) => {
 									return (
 										<button
 											key={`command-${commandIndex}`}
@@ -152,7 +152,7 @@ function SlashCommandNodeView(props: any, ref: any) {
 											}
 											ref={el => setActiveItemRef(groupIndex, commandIndex, el)}
 											className={cn(
-												'flex w-full items-center gap-3 rounded-sm border-none! bg-transparent! px-2 py-1.5 text-left text-sm text-foreground !outline-none transition-colors hover:!bg-accent',
+												'flex w-full items-center gap-3 rounded-sm border-none! bg-transparent! px-2 py-1.5 text-left text-sm text-foreground outline-none! transition-colors hover:bg-accent!',
 												{
 													'bg-item-active':
 														selectedGroupIndex === groupIndex &&
