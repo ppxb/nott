@@ -3,6 +3,7 @@ import { PluginKey } from '@tiptap/pm/state'
 import { ReactRenderer } from '@tiptap/react'
 import { Suggestion } from '@tiptap/suggestion'
 import { updatePosition } from '@/lib/update-position'
+import slashCommandNodeView from './components/slash-command-node-view'
 import { Command } from './types'
 
 export const SlashCommand = Extension.create({
@@ -39,7 +40,7 @@ export const SlashCommand = Extension.create({
 								return
 							}
 
-							reactRenderer = new ReactRenderer(null, {
+							reactRenderer = new ReactRenderer(slashCommandNodeView, {
 								props,
 								editor: props.editor
 							})

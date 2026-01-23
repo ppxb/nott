@@ -4,6 +4,8 @@ import type { Editor } from '@tiptap/react'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { useCallback, useState } from 'react'
+import { SlashCommand } from '@/extensions/slash-command'
+import { SlashCommandList } from '@/extensions/slash-command/components/slash-command-list'
 import BubbleFloatingMenu from './bubble-floating-menu'
 import { EditorProvider } from './provider/editor-provider'
 
@@ -27,7 +29,8 @@ export default function NottEditor() {
 			}),
 			Placeholder.configure({
 				placeholder: "Write, type '/' for commands..."
-			})
+			}),
+			SlashCommand
 		],
 		content: '',
 		autofocus: 'end',
@@ -106,6 +109,7 @@ export default function NottEditor() {
 			<div className="flex-1 overflow-auto bg-white">
 				<EditorProvider editor={editor}>
 					<BubbleFloatingMenu />
+					<SlashCommandList />
 					<EditorContent editor={editor} className="w-full" />
 				</EditorProvider>
 			</div>
