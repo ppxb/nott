@@ -30,7 +30,7 @@ export function useEditorState(providedEditor?: Editor) {
 
 	return useTiptapEditorState({
 		editor,
-		selector: context => context.editor?.state
+		selector: context => context.editor.state
 	})
 }
 
@@ -39,7 +39,7 @@ export function useCanCommand(providedEditor?: Editor) {
 
 	return useTiptapEditorState({
 		editor,
-		selector: context => context.editor?.can
+		selector: context => context.editor.can
 	})
 }
 
