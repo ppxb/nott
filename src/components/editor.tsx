@@ -105,7 +105,7 @@ export default function NottEditor() {
 	})
 
 	return (
-		<div className="flex flex-col h-screen w-full bg-gray-50">
+		<div className="flex flex-col h-full w-full bg-gray-50">
 			<div className="flex-1 overflow-auto bg-white">
 				<EditorProvider editor={editor}>
 					<BubbleFloatingMenu />

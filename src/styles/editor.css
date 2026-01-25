@@ -1,9 +1,5 @@
-.tiptap {
-  width: 100%;
-}
-
 .ProseMirror {
-  @apply prose prose-slate;
+  @apply prose prose-slate max-w-none;
 
   padding: 60px 80px 48px 80px;
 }
