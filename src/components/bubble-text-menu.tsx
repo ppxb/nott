@@ -8,9 +8,11 @@ import {
 	PopoverContent,
 	PopoverTrigger
 } from '@/components/ui/popover'
+import { Separator } from '@/components/ui/separator'
 import { renderCommandList } from '@/extensions/slash-command/render-command-list'
 import { useEditorEditable, useEditorInstance } from '@/store/editor'
 import { ActionButton } from './action-button'
+import { IconComponent } from './Icon'
 
 function TurnIntoMenu() {
 	const [open, setOpen] = useState(false)
@@ -33,6 +35,11 @@ function TurnIntoMenu() {
 			>
 				<ActionButton dataState={!!label}>
 					{label ? <>{label}</> : null}
+
+					<IconComponent
+						className="ml-1 size-3 text-zinc-500"
+						name="ChevronDown"
+					/>
 				</ActionButton>
 			</PopoverTrigger>
 
@@ -64,12 +71,12 @@ function TurnIntoMenu() {
 							</div>
 
 							<div className="flex items-center gap-1">
-								{/* {item.iconName && (
+								{item.iconName && (
 									<IconComponent
 										className="mr-1! text-lg!"
 										name={item.iconName}
 									/>
-								)} */}
+								)}
 
 								{item.label}
 							</div>
@@ -78,6 +85,15 @@ function TurnIntoMenu() {
 				})}
 			</PopoverContent>
 		</Popover>
+	)
+}
+
+function DefaultBubbleMenu() {
+	return (
+		<>
+			<TurnIntoMenu />
+			<Separator className="mx-1! my-2! h-4!" orientation="vertical" />
+		</>
 	)
 }
 
